@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:startup/components/service_displayer.dart';
 import 'components/menu_bar.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SU',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 183, 102, 58)),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 183, 102, 58)),
         useMaterial3: true,
       ),
       home: MainPage(),
@@ -28,9 +30,26 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: menuBar(context),
-      body: Center(
-        child: Placeholder(),
+      body: Body(
+        content: ServiceCardList(),
       ),
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  const Body({
+    super.key,
+    required this.content,
+  });
+
+  final Widget content;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints.expand(),
+      child: SafeArea(child: content),
     );
   }
 }
