@@ -6,6 +6,9 @@ PreferredSizeWidget menuBar(BuildContext context) {
     leading: HomeButton(),
     title: DummyLogo(),
     backgroundColor: bgColor,
+    centerTitle: true,
+    leadingWidth: 70,
+    toolbarHeight: 100,
   );
 }
 
@@ -25,17 +28,17 @@ class HomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color color = Theme.of(context).colorScheme.onPrimary;
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.all(7),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
         color: color,
+        shape: BoxShape.circle,
       ),
       child: IconButton(
         onPressed: () {},
         tooltip: 'Homepage',
         icon: Icon(
           Icons.home,
-          size: 30,
+          size: 40,
         ),
       ),
     );
