@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       title: 'SU',
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 183, 102, 58)),
+            ColorScheme.fromSeed(seedColor: Color.fromARGB(211, 2, 213, 255)),
+        textTheme: TextTheme(headlineLarge: TextStyle(fontFamily: "Merriweather")),
         useMaterial3: true,
       ),
       home: MainPage(),
