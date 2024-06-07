@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:startup/components/service_displayer.dart';
 import 'components/menu_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'states/state.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,14 +25,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends ConsumerWidget {
   const MainPage({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final Widget content = ref.watch(contentProvider);
+
     return Scaffold(
       appBar: menuBar(context),
       body: Body(
-        content: ServiceCardList(),
+        content: content,
       ),
     );
   }
