@@ -18,7 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromARGB(211, 2, 213, 255)),
-        textTheme: TextTheme(headlineLarge: TextStyle(fontFamily: "Merriweather")),
+        textTheme: TextTheme(
+          headlineLarge: TextStyle(fontFamily: "Merriweather"),
+          headlineMedium: TextStyle(fontFamily: "Merriweather"),
+          headlineSmall: TextStyle(fontFamily: "Merriweather"),
+        ),
         useMaterial3: true,
       ),
       home: MainPage(),
@@ -51,9 +55,10 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints.expand(),
-      child: SafeArea(child: content),
+    return SafeArea(
+      child: Center(
+        child: content,
+      ),
     );
   }
 }
