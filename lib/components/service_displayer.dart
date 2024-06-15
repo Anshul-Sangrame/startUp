@@ -43,7 +43,6 @@ class ServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = 180;
-    double height = 180;
     double margin = 10;
 
     return Container(

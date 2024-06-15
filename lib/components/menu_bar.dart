@@ -4,7 +4,6 @@ import 'package:startup/components/service_displayer.dart';
 import '../states/state.dart';
 
 PreferredSizeWidget menuBar(BuildContext context) {
-  Color bgColor = Theme.of(context).highlightColor;
   Color shadowColor = Theme.of(context).shadowColor;
   return AppBar(
     leading: HomeButton(),
@@ -57,7 +56,7 @@ class DummyLogo extends StatelessWidget {
 class HomeButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color color = Theme.of(context).colorScheme.onPrimary;
+
     return IconButton(
       onPressed: () {
         ref.read(contentProvider.notifier).setContent(ServiceCardList());
