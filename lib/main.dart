@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'components/menu_bar.dart';
+import 'components/menu_bar.dart' show menuBar;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'states/state.dart';
+import './components/test.dart';
+
+const bool isTest = false;
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -18,14 +21,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromARGB(211, 2, 213, 255)),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           headlineLarge: TextStyle(fontFamily: "Merriweather"),
           headlineMedium: TextStyle(fontFamily: "Merriweather"),
           headlineSmall: TextStyle(fontFamily: "Merriweather"),
         ),
         useMaterial3: true,
       ),
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }
@@ -39,7 +42,7 @@ class MainPage extends ConsumerWidget {
     return Scaffold(
       appBar: menuBar(context),
       body: Body(
-        content: content,
+        content: isTest ? Test() : content,
       ),
     );
   }

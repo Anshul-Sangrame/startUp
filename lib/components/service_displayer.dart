@@ -1,68 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../states/state.dart';
+import './service_page.dart' show ServicePage;
 
-// class ServiceCard extends StatelessWidget {
-//   const ServiceCard({
-//     super.key,
-//     required this.imageURL,
-//   });
-
-//   final String imageURL;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       // semanticContainer: true,
-//       clipBehavior: Clip.antiAliasWithSaveLayer,
-//       elevation: 10,
-//       child: Container(
-//         decoration: BoxDecoration(
-//           shape: BoxShape.circle,
-//         ),
-//         child: Ink.image(
-//           image: NetworkImage(imageURL),
-//           fit: BoxFit.fill,
-//           child: InkWell(
-//             onTap: () {},
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-class ServiceCard extends StatelessWidget {
+class ServiceCard extends ConsumerWidget {
   const ServiceCard({
     super.key,
     required this.imageURL,
     required this.title,
+    required this.content,
   });
 
   final String title;
   final String imageURL;
+  final Widget content;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     double width = 180;
     double margin = 10;
 
-    return Container(
-      height: width - 2 * margin,
-      width: width - 2 * margin,
-      margin: EdgeInsets.all(margin),
-      child: Card(
-          elevation: 10,
-          child: InkWell(
-            onTap: () {},
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                HeadingText(
-                  text: title,
-                ),
-                RoundedImage(imageURL: imageURL),
-              ],
-            ),
-          )),
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: width - 2 * margin,
+        width: width - 2 * margin,
+        margin: EdgeInsets.all(margin),
+        child: Card(
+            elevation: 10,
+            child: InkWell(
+              onTap: () {
+                ref.read(contentProvider.notifier).setContent(content);
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  HeadingText(
+                    text: title,
+                  ),
+                  RoundedImage(imageURL: imageURL),
+                ],
+              ),
+            )),
+      ),
     );
   }
 }
@@ -82,7 +62,7 @@ class RoundedImage extends StatelessWidget {
       height: size,
       width: size,
       clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
       ),
       child: Image.asset(
@@ -108,7 +88,7 @@ class OfferCard extends StatelessWidget {
       height: height - 2 * margin,
       width: width - 2 * margin,
       margin: EdgeInsets.all(margin),
-      child: Card(
+      child: const Card(
         elevation: 10,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -147,47 +127,41 @@ class ServiceCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 30),
       children: [
-        Wrap(
+        const Wrap(
           alignment: WrapAlignment.center,
           children: [
             ServiceCard(
               imageURL:
                   "assets/images/taxi.jpeg",
               title: "Taxi",
+              content: Placeholder(),
             ),
             ServiceCard(
               imageURL:
                   "assets/images/flight.jpeg",
               title: "Flight",
+              content: ServicePage(
+                imageURL: "assets/images/flight_bg.jpg",
+                inputWidget: Placeholder(
+                  fallbackHeight: 40,
+                  fallbackWidth: 40,
+                ),
+              ),
             ),
             ServiceCard(
               imageURL:
                   "assets/images/hotel.jpeg",
               title: "Hotel",
+              content: Placeholder(),
             ),
             ServiceCard(
               imageURL:
                   "assets/images/food.jpg",
               title: "Food",
+              content: Placeholder(),
             ),
-            // ServiceCard(
-            //   imageURL:
-            //       "https://5.imimg.com/data5/SELLER/Default/2023/10/351027020/WQ/VY/LA/10351111/hotel-accommodation-service.jpeg",
-            // ),
-            // ServiceCard(
-            //   imageURL:
-            //       "https://5.imimg.com/data5/SELLER/Default/2023/10/351027020/WQ/VY/LA/10351111/hotel-accommodation-service.jpeg",
-            // ),
-            // ServiceCard(
-            //   imageURL:
-            //       "https://5.imimg.com/data5/SELLER/Default/2023/10/351027020/WQ/VY/LA/10351111/hotel-accommodation-service.jpeg",
-            // ),
-            // ServiceCard(
-            //   imageURL:
-            //       "https://5.imimg.com/data5/SELLER/Default/2023/10/351027020/WQ/VY/LA/10351111/hotel-accommodation-service.jpeg",
-            // ),
           ],
         ),
         OfferCard(),
