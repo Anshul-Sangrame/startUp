@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../states/state.dart';
 import './service_page.dart' show ServicePage;
+import 'common_components.dart';
+import './input_widget.dart';
+import '../constants/constants.dart' as constants;
+import 'package:path/path.dart' as path;
 
 class ServiceCard extends ConsumerWidget {
   const ServiceCard({
@@ -35,7 +39,7 @@ class ServiceCard extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  HeadingText(
+                  CardHeadingText(
                     text: title,
                   ),
                   RoundedImage(imageURL: imageURL),
@@ -93,32 +97,12 @@ class OfferCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            HeadingText(
+            CardHeadingText(
               text: "Best Offers",
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class HeadingText extends StatelessWidget {
-  const HeadingText({
-    super.key,
-    required this.text,
-  });
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: Theme.of(context)
-          .textTheme
-          .headlineSmall
-          ?.copyWith(color: Theme.of(context).hintColor),
     );
   }
 }
@@ -129,42 +113,45 @@ class ServiceCardList extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.only(top: 30),
       children: [
-        const Wrap(
+        Wrap(
           alignment: WrapAlignment.center,
           children: [
             ServiceCard(
-              imageURL:
-                  "assets/images/taxi.jpeg",
+              imageURL: path.join(constants.IMAGE_LOC,"taxi.jpeg"),
               title: "Taxi",
-              content: Placeholder(),
-            ),
-            ServiceCard(
-              imageURL:
-                  "assets/images/flight.jpeg",
-              title: "Flight",
               content: ServicePage(
-                imageURL: "assets/images/flight_bg.jpg",
-                inputWidget: Placeholder(
-                  fallbackHeight: 40,
-                  fallbackWidth: 40,
-                ),
+                inputWidget: const TaxiInput(),
+                imageURL: path.join(constants.IMAGE_LOC,"taxi_bg.webp"),
               ),
             ),
             ServiceCard(
-              imageURL:
-                  "assets/images/hotel.jpeg",
-              title: "Hotel",
-              content: Placeholder(),
+              imageURL: path.join(constants.IMAGE_LOC,"flight.jpeg"),
+              title: "Flight",
+              content: ServicePage(
+                imageURL: path.join(constants.IMAGE_LOC,"flight_bg.jpg"),
+                inputWidget: const FlightInput(),
+              ),
             ),
             ServiceCard(
-              imageURL:
-                  "assets/images/food.jpg",
+              imageURL: path.join(constants.IMAGE_LOC,"hotel.jpeg"),
+              title: "Hotel",
+              content: ServicePage(
+                imageURL: path.join(constants.IMAGE_LOC,"hotel_bg.jpg"),
+                inputWidget: const HotelInput(),
+              ),
+            ),
+            ServiceCard(
+              imageURL: path.join(constants.IMAGE_LOC,"food.jpg"),
               title: "Food",
-              content: Placeholder(),
+              content: ServicePage(
+                imageURL: path.join(constants.IMAGE_LOC,"food_bg.png"),
+                inputWidget: const FoodInput(),
+              ),
             ),
           ],
         ),
-        OfferCard(),
+        const Divider(),
+        const OfferCard(),
       ],
     );
   }

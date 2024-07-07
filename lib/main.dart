@@ -19,13 +19,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'SU',
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(211, 2, 213, 255)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(210, 14, 100, 117)),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(fontFamily: "Merriweather"),
           headlineMedium: TextStyle(fontFamily: "Merriweather"),
           headlineSmall: TextStyle(fontFamily: "Merriweather"),
         ),
+        filledButtonTheme: FilledButtonThemeData(
+            style: FilledButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        )),
         useMaterial3: true,
       ),
       home: const MainPage(),

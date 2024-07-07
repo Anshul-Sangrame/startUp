@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'common_components.dart';
 
 class ServicePage extends StatelessWidget {
   const ServicePage({
@@ -15,59 +16,100 @@ class ServicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const TopInputHandler(),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: TopInputHandler(
+            imageUrl: imageURL,
+            inputWidget: inputWidget,
+          ),
+        ),
+        const Divider(),
+        Results(),
       ],
     );
   }
 }
 
-
-class TopInputHandler extends StatelessWidget {
-  const TopInputHandler({
+class Results extends StatelessWidget {
+  const Results({
     super.key,
   });
 
-  final String imageUrl = "assets/images/flight_bg.jpg";
-
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height / 3;
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return SizedBox(
-      // height: height + 45,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          TitleImage(height: height, imageUrl: imageUrl),
-          InputBox(height: height, screenWidth: screenWidth),
-        ],
-      ),
+    return const Placeholder(
+      fallbackHeight: 100,
     );
   }
 }
 
-class InputBox extends StatelessWidget {
-  const InputBox({
+class TopInputHandler extends StatelessWidget {
+  const TopInputHandler({
     super.key,
-    required this.height,
-    required this.screenWidth,
+    required this.inputWidget,
+    required this.imageUrl,
   });
 
-  final double height;
-  final double screenWidth;
+  final String imageUrl;
+  final Widget inputWidget;
 
   @override
   Widget build(BuildContext context) {
+    final double height = 0.4 * MediaQuery.of(context).size.height;
 
-    double myHeight = height - 20;
-    return Positioned(
-      top: height - myHeight/2,
-      left: screenWidth/2 - myHeight/2,
+    return Stack(
+      children: [
+        SizedBox(
+          height: height,
+          child: TitleImage(imageUrl: imageUrl),
+        ),
+        Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.only(
+            top: 0.6 * height,
+          ),
+          child: InputFormWrapper(inputWidget: inputWidget),
+        ),
+      ],
+    );
+  }
+}
+
+class InputFormWrapper extends StatelessWidget {
+  const InputFormWrapper({
+    super.key,
+    required this.inputWidget,
+  });
+
+  final Widget inputWidget;
+
+  @override
+  Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width - 70;
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      elevation: 10,
       child: Container(
-        width: myHeight,
-        height: myHeight,
-        color: Colors.green,
+        padding: const EdgeInsets.all(20),
+        width: width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              alignment: Alignment.topCenter,
+              constraints: BoxConstraints(
+                minHeight: width - 70,
+              ),
+              margin: const EdgeInsets.only(bottom: 10),
+              child: inputWidget,
+            ),
+            FilledButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+              label: const FilledButtonText(text: "Search"),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -76,17 +118,21 @@ class InputBox extends StatelessWidget {
 class TitleImage extends StatelessWidget {
   const TitleImage({
     super.key,
-    required this.height,
     required this.imageUrl,
   });
 
-  final double height;
   final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(35),
+          bottomRight: Radius.circular(35),
+        ),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: Image.asset(
         imageUrl,
         fit: BoxFit.cover,

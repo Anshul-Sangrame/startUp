@@ -9,7 +9,7 @@ PreferredSizeWidget menuBar(BuildContext context) {
     leading: HomeButton(),
     title: DummyLogo(),
     actions: [
-      ProfileLogo(),
+      const ProfileLogo(),
     ],
     surfaceTintColor: null,
     shadowColor: shadowColor,
@@ -33,7 +33,7 @@ class ProfileLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {},
-        icon: Icon(
+        icon: const Icon(
           Icons.person_4_outlined,
           size: 40,
         )
@@ -62,7 +62,7 @@ class HomeButton extends ConsumerWidget {
         ref.read(contentProvider.notifier).setContent(ServiceCardList());
       },
       // tooltip: 'Homepage',
-      icon: Icon(
+      icon: const Icon(
         Icons.home_outlined,
         size: 40,
       ),
