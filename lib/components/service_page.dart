@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'common_components.dart';
 
 class ServicePage extends StatelessWidget {
@@ -24,7 +24,7 @@ class ServicePage extends StatelessWidget {
           ),
         ),
         const Divider(),
-        Results(),
+        const Results(),
       ],
     );
   }
