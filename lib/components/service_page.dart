@@ -24,7 +24,7 @@ class ServicePage extends StatelessWidget {
           ),
         ),
         const Divider(),
-        const Results(),
+        // const Results(),
       ],
     );
   }

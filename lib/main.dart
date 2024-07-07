@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'components/menu_bar.dart' show menuBar;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'states/state.dart';
@@ -6,7 +9,14 @@ import './components/test.dart';
 
 const bool isTest = false;
 
-void main() {
+Future<void> lockOrientation()
+async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+}
+
+Future<void> main() async {
+  await lockOrientation();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -45,8 +55,11 @@ class MainPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: menuBar(context),
-      body: Body(
-        content: isTest ? Test() : content,
+      body: RefreshIndicator(
+        onRefresh: () async {},
+        child: Body(
+          content: isTest ? Test() : content,
+        ),
       ),
     );
   }
